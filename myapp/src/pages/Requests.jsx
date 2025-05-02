@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Commet } from "react-loading-indicators";
+import { Link } from "react-router-dom";
 
 const Requests = () => {
       let url = "https://northwind.vercel.app/api/categories";
@@ -110,6 +111,20 @@ const Requests = () => {
                                                       >
                                                             Delete
                                                       </button>
+                                                      <Link to={`/detail/${item.id}`} state={{ item }}>
+                                                            <button
+                                                                  style={{
+                                                                        padding: "6px 12px",
+                                                                        backgroundColor: "green",
+                                                                        color: "#fff",
+                                                                        border: "none",
+                                                                        borderRadius: "4px",
+                                                                        cursor: "pointer",
+                                                                  }}
+                                                            >
+                                                                  Details
+                                                            </button>
+                                                      </Link>
                                                 </div>
                                           ))}
                   </div>
