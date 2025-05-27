@@ -1,0 +1,46 @@
+ h3 {
+       font-weight: 100;
+ }
+
+ .card-wrapper {
+       display: flex;
+       justify-content: space-between;
+       flex-wrap: wrap;
+       gap: 20px;
+
+       .card {
+             width: 22%;
+             height: 320px;
+             border: 1px solid gray;
+             text-align: center;
+
+             .img-wrapper {
+                   width: 100%;
+                   height: 160px;
+
+                   img {
+                         height: 100%;
+                         width: 100%;
+                   }
+             }
+       }
+ }
+
+ @media screen and (max-width: 666px) {
+       .card-wrapper {
+             .card {
+                   width: 45%;
+             }
+       }
+ }
+
+
+ @media screen and (max-width: 425px) {
+       .card-wrapper {
+             justify-content: center;
+
+             .card {
+                   width: 90%;
+             }
+       }
+ }

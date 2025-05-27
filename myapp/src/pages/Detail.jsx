@@ -1,22 +1,25 @@
 import React, { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 
 const Detail = () => {
-      const location = useLocation()
-      const data = location.state.item
+
+      const { id } = useParams()
+      console.log('====================================');
+      console.log();
+      console.log('====================================');
+
+
 
       useEffect(() => {
             console.log('====================================');
-            console.log(data);
+            console.log(location.state);
             console.log('====================================');
-
-
       }, [])
 
 
       return (
             <div>
-                  {
+                  {/* {
 
                         <div>
                               <p>
@@ -27,7 +30,7 @@ const Detail = () => {
                               </p>
                               <p>id : {data.id}</p>
                         </div>
-                  }
+                  } */}
             </div>
       )
 }
