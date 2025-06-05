@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 dotenv.config();
 import nodemailer from 'nodemailer';
-
+import jwt from 'jsonwebtoken';
 function createTransporter() {
       return nodemailer.createTransport({
             service: 'gmail',
@@ -90,7 +90,15 @@ export const login = async (req, res) => {
                               return console.error('Email göndərilmədi:', error);
                         }
                         console.log('Email göndərildi:', info.response);
-                        res.status(200).json({ message: 'Login successful', users: users[0] });
+
+
+
+                        const token = jwt.sign({ id: users[0]._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+                        res.status(200).json({
+                              message: 'Login successful, please confirm your email',
+                              token: token,
+                              user: users[0],
+                        });
                   });
             }
       } catch (error) {

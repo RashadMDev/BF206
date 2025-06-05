@@ -4,14 +4,17 @@ import { Commet } from "react-loading-indicators";
 import { Link } from "react-router-dom";
 
 const Requests = () => {
-      let url = "https://northwind.vercel.app/api/categories";
+      let url = "http://localhost:3000/api/products";
       const [data, setdata] = useState([]);
       const [isLoading, setisLoading] = useState(true)
       const [search, setsearch] = useState('')
       const [newCategory, setnewCategory] = useState({
             name: '',
-            description: ''
-      })
+            description: '',
+            price: '',
+            image: ''
+      });
+
 
       async function readDatas() {
             try {
@@ -24,9 +27,9 @@ const Requests = () => {
             }
       }
 
-      async function deleteData(id) {
+      async function deleteData(_id) {
             try {
-                  await axios.delete(`${url}/${id}`)
+                  await axios.delete(`${url}/${_id}`)
                   readDatas()
             } catch (error) {
                   console.error(error);
@@ -37,9 +40,11 @@ const Requests = () => {
             try {
                   await axios.post(url, {
                         name: newCategory.name,
-                        description: newCategory.description
-                  })
-                  readDatas()
+                        description: newCategory.description,
+                        price: newCategory.price,
+                        image: newCategory.image
+                  });
+                  readDatas();
             } catch (error) {
                   console.error(error);
             }
@@ -63,18 +68,29 @@ const Requests = () => {
                         type="text"
                         placeholder="Add name.."
                         value={newCategory.name}
-                        onChange={(e) => setnewCategory({
-                              description: newCategory.description,
-                              name: e.target.value
-                        })} />
+                        onChange={(e) => setnewCategory({ ...newCategory, name: e.target.value })}
+                  />
+
                   <input
                         type="text"
                         placeholder="Add description.."
                         value={newCategory.description}
-                        onChange={(e) => setnewCategory({
-                              description: e.target.value,
-                              name: newCategory.name
-                        })} />
+                        onChange={(e) => setnewCategory({ ...newCategory, description: e.target.value })}
+                  />
+
+                  <input
+                        type="number"
+                        placeholder="Add price.."
+                        value={newCategory.price}
+                        onChange={(e) => setnewCategory({ ...newCategory, price: e.target.value })}
+                  />
+
+                  <input
+                        type="text"
+                        placeholder="Add image URL.."
+                        value={newCategory.image}
+                        onChange={(e) => setnewCategory({ ...newCategory, image: e.target.value })}
+                  />
                   <button onClick={createData}>Add category</button>
                   <h2 style={{ textAlign: "center" }}>Category List</h2>
                   <div style={{ display: "grid", gap: "15px", maxWidth: "600px", margin: "0 auto" }}>
@@ -98,6 +114,12 @@ const Requests = () => {
                                                 >
                                                       <p style={{ fontWeight: "bold", fontSize: "18px", margin: "0 0 5px" }}>{item.name}</p>
                                                       <p style={{ marginBottom: "10px", color: "#555" }}>{item.description}</p>
+                                                      <img
+                                                            src={item.image}
+                                                            alt={item.name}
+                                                            style={{ width: "100%", maxHeight: "200px", objectFit: "cover", marginBottom: "10px" }}
+                                                      />
+                                                      <p style={{ fontSize: "16px", color: "#333" }}>Price: ${item.price}</p>
                                                       <button
                                                             style={{
                                                                   padding: "6px 12px",
@@ -107,7 +129,7 @@ const Requests = () => {
                                                                   borderRadius: "4px",
                                                                   cursor: "pointer",
                                                             }}
-                                                            onClick={() => deleteData(item.id)}
+                                                            onClick={() => deleteData(item._id)}
                                                       >
                                                             Delete
                                                       </button>

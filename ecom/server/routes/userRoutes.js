@@ -5,10 +5,11 @@ import {
       login,
       confirm,
 } from '../controllers/userController.js';
+import { protect } from '../middlewares/generateToken.js';
 
 const router = express.Router();
 
-router.get('/', getUsers);
+router.get('/', protect, getUsers);
 router.post('/register', register);
 router.post('/login', login);
 router.post('/confirm', confirm);

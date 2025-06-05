@@ -19,7 +19,7 @@ const Detail = () => {
 
       return (
             <div>
-                  {/* {
+                  {
 
                         <div>
                               <p>
@@ -30,7 +30,7 @@ const Detail = () => {
                               </p>
                               <p>id : {data.id}</p>
                         </div>
-                  } */}
+                  }
             </div>
       )
 }
